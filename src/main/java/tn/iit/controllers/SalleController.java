@@ -14,45 +14,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tn.iit.entities.Enseignant;
-import tn.iit.repo.EnseignantRepo;
+import tn.iit.entities.Salle;
+import tn.iit.repo.SalleRepo;
 
 @Controller
-@RequestMapping("Enseignant")
-public class EnseignantController {
+@RequestMapping("Salle")
+public class SalleController {
 	@Autowired
-	private EnseignantRepo enseignantRepo;
+	private SalleRepo salleRepo;
 
 	@GetMapping
 	@ResponseBody
-	public List<Enseignant> list() {
-		return enseignantRepo.findAll();
+	public List<Salle> list() {
+		return salleRepo.findAll();
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		enseignantRepo.delete(id);
+		salleRepo.delete(id);
 	}
 
 	@GetMapping("/{id}")
 	@ResponseBody
-	public Enseignant show(@PathVariable Long id) {
+	public Salle show(@PathVariable Long id) {
 		System.out.println(id);
-		enseignantRepo.findOne(id);
-		return enseignantRepo.findOne(id);
+		salleRepo.findOne(id);
+		return salleRepo.findOne(id);
 	}
 
 	@ResponseBody
 	@PostMapping
-	public List<Enseignant> add(@RequestParam String nom, @RequestParam String prenom, @RequestParam String grade,
-			@RequestParam String institution, @RequestParam String mail, @RequestParam String tel) {
-		enseignantRepo.save(new Enseignant(nom,prenom,grade,institution,mail,tel));
-		return enseignantRepo.findAll();
+	public List<Salle> add(@RequestParam String nom, @RequestParam String etage, @RequestParam int capacite) {
+		salleRepo.save(new Salle(nom,etage,capacite));
+		return salleRepo.findAll();
 	}
+
 	@ResponseBody
-	 @PutMapping
-	 public void  add(@RequestBody Enseignant enseignant)
-	 {
-		 enseignantRepo.save(enseignant);
-	 }
+	@PutMapping
+	public void add(@RequestBody Salle salle) {
+		salleRepo.save(salle);
+	}
 }

@@ -20,8 +20,8 @@ public class Creneau implements java.io.Serializable {
 	@JoinColumn(name = "id_enseignant")
 	private Enseignant enseignant;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_groupe")
-	private Groupe groupe;
+	@JoinColumn(name = "id_classe")
+	private Classe classe;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_salle")
 	private Salle salle;
@@ -32,9 +32,9 @@ public class Creneau implements java.io.Serializable {
 	public Creneau() {
 	}
 
-	public Creneau(Enseignant enseignant, Groupe groupe, Salle salle, Seance seance) {
+	public Creneau(Enseignant enseignant, Classe classe, Salle salle, Seance seance) {
 		this.enseignant = enseignant;
-		this.groupe = groupe;
+		this.classe = classe;
 		this.salle = salle;
 		this.seance = seance;
 	}
@@ -55,12 +55,12 @@ public class Creneau implements java.io.Serializable {
 		this.enseignant = enseignant;
 	}
 
-	public Groupe getGroupe() {
-		return this.groupe;
+	public Classe getClasse() {
+		return this.classe;
 	}
 
-	public void setGroupe(Groupe groupe) {
-		this.groupe = groupe;
+	public void setClasse(Classe classe) {
+		this.classe = classe;
 	}
 
 	public Salle getSalle() {
@@ -81,7 +81,7 @@ public class Creneau implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Creneau [id=" + id + ", enseignant=" + enseignant + ", groupe=" + groupe + ", salle=" + salle
+		return "Creneau [id=" + id + ", enseignant=" + enseignant + ", classe=" + classe + ", salle=" + salle
 				+ ", seance=" + seance + "]";
 	}
 

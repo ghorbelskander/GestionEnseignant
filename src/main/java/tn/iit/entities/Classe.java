@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 
 
 @Entity
-public class Groupe implements java.io.Serializable {
+public class Classe implements java.io.Serializable {
 
 	/**
 	 * 
@@ -28,16 +28,16 @@ public class Groupe implements java.io.Serializable {
 	private String niveau;
 	private Set<Creneau> creneaus = new HashSet<Creneau>(0);
 
-	public Groupe() {
+	public Classe() {
 	}
 
-	public Groupe(String libelle, String specialite, String niveau) {
+	public Classe(String libelle, String specialite, String niveau) {
 		this.libelle = libelle;
 		this.specialite = specialite;
 		this.niveau = niveau;
 	}
 
-	public Groupe(String libelle, String specialite, String niveau, Set<Creneau> creneaus) {
+	public Classe(String libelle, String specialite, String niveau, Set<Creneau> creneaus) {
 		this.libelle = libelle;
 		this.specialite = specialite;
 		this.niveau = niveau;
@@ -108,7 +108,7 @@ public class Groupe implements java.io.Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Groupe other = (Groupe) obj;
+		Classe other = (Classe) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

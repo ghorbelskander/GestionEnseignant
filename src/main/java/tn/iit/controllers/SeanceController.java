@@ -1,5 +1,6 @@
 package tn.iit.controllers;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,45 +15,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tn.iit.entities.Enseignant;
-import tn.iit.repo.EnseignantRepo;
+import tn.iit.entities.Seance;
+import tn.iit.repo.SeanceRepo;
 
 @Controller
-@RequestMapping("Enseignant")
-public class EnseignantController {
+@RequestMapping("Seance")
+public class SeanceController {
 	@Autowired
-	private EnseignantRepo enseignantRepo;
+	private SeanceRepo seanceRepo;
 
 	@GetMapping
 	@ResponseBody
-	public List<Enseignant> list() {
-		return enseignantRepo.findAll();
+	public List<Seance> list() {
+		return seanceRepo.findAll();
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		enseignantRepo.delete(id);
+		seanceRepo.delete(id);
 	}
 
 	@GetMapping("/{id}")
 	@ResponseBody
-	public Enseignant show(@PathVariable Long id) {
+	public Seance show(@PathVariable Long id) {
 		System.out.println(id);
-		enseignantRepo.findOne(id);
-		return enseignantRepo.findOne(id);
+		seanceRepo.findOne(id);
+		return seanceRepo.findOne(id);
 	}
 
 	@ResponseBody
 	@PostMapping
-	public List<Enseignant> add(@RequestParam String nom, @RequestParam String prenom, @RequestParam String grade,
-			@RequestParam String institution, @RequestParam String mail, @RequestParam String tel) {
-		enseignantRepo.save(new Enseignant(nom,prenom,grade,institution,mail,tel));
-		return enseignantRepo.findAll();
+	public List<Seance> add(@RequestParam String libelle, @RequestParam Date dateDebut, @RequestParam Date dateFin) {
+		seanceRepo.save(new Seance(libelle, dateDebut, dateFin));
+		return seanceRepo.findAll();
 	}
+
 	@ResponseBody
-	 @PutMapping
-	 public void  add(@RequestBody Enseignant enseignant)
-	 {
-		 enseignantRepo.save(enseignant);
-	 }
+	@PutMapping
+	public void add(@RequestBody Seance seance) {
+		seanceRepo.save(seance);
+	}
 }
