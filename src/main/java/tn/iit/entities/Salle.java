@@ -1,64 +1,57 @@
 package tn.iit.entities;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
-public class Salle implements java.io.Serializable {
+public class Salle implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private String nom;
+	private Long id;
+	private String libelle;
 	private String etage;
 	private int capacite;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "salle")
-	private Set<Creneau> creneaus = new HashSet<Creneau>(0);
+
+	public Salle(Long id, String libelle, String etage, int capacite) {
+		super();
+		this.id = id;
+		this.libelle = libelle;
+		this.etage = etage;
+		this.capacite = capacite;
+	}
 
 	public Salle() {
+		super();
 	}
 
-	public Salle(String nom, String etage, int capacite) {
-		this.nom = nom;
-		this.etage = etage;
-		this.capacite = capacite;
+	public Long getId() {
+		return id;
 	}
 
-	public Salle(String nom, String etage, int capacite, Set<Creneau> creneaus) {
-		this.nom = nom;
-		this.etage = etage;
-		this.capacite = capacite;
-		this.creneaus = creneaus;
-	}
-
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return this.nom;
+	public String getLibelle() {
+		return libelle;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
 
 	public String getEtage() {
-		return this.etage;
+		return etage;
 	}
 
 	public void setEtage(String etage) {
@@ -66,32 +59,32 @@ public class Salle implements java.io.Serializable {
 	}
 
 	public int getCapacite() {
-		return this.capacite;
+		return capacite;
 	}
 
 	public void setCapacite(int capacite) {
 		this.capacite = capacite;
 	}
 
-	public Set<Creneau> getCreneaus() {
-		return this.creneaus;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-	public void setCreneaus(Set<Creneau> creneaus) {
-		this.creneaus = creneaus;
-	}
-
-	@Override
-	public String toString() {
-		return "Salle [id=" + id + ", nom=" + nom + ", etage=" + etage + ", capacite=" + capacite + ", creneaus="
-				+ creneaus + "]";
+	public Salle(String libelle, String etage, int capacite) {
+		super();
+		this.libelle = libelle;
+		this.etage = etage;
+		this.capacite = capacite;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + capacite;
+		result = prime * result + ((etage == null) ? 0 : etage.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
 		return result;
 	}
 
@@ -104,12 +97,29 @@ public class Salle implements java.io.Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Salle other = (Salle) obj;
+		if (capacite != other.capacite)
+			return false;
+		if (etage == null) {
+			if (other.etage != null)
+				return false;
+		} else if (!etage.equals(other.etage))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (libelle == null) {
+			if (other.libelle != null)
+				return false;
+		} else if (!libelle.equals(other.libelle))
+			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Salle [id=" + id + ", libelle=" + libelle + ", etage=" + etage + ", capacite=" + capacite + "]";
 	}
 
 }

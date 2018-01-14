@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,48 +12,55 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tn.iit.entities.Enseignant;
 import tn.iit.repo.EnseignantRepo;
 
 @Controller
-@RequestMapping("Enseignant")
+@RequestMapping("api/enseignant")
 public class EnseignantController {
 	@Autowired
 	private EnseignantRepo enseignantRepo;
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping
 	@ResponseBody
-	public List<Enseignant> list() {
+	public List<Enseignant> liste() {
 		return enseignantRepo.findAll();
+
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
+	@ResponseBody
+	public String delete(@PathVariable Long id) {
 		enseignantRepo.delete(id);
+		return "success";
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	@ResponseBody
-	public Enseignant show(@PathVariable Long id) {
-		System.out.println(id);
-		enseignantRepo.findOne(id);
+	public Enseignant get(@PathVariable Long id) {
 		return enseignantRepo.findOne(id);
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value = "/")
 	@ResponseBody
-	@PostMapping
-	public List<Enseignant> add(@RequestParam String nom, @RequestParam String prenom, @RequestParam String grade,
-			@RequestParam String institution, @RequestParam String mail, @RequestParam String tel) {
-		enseignantRepo.save(new Enseignant(nom,prenom,grade,institution,mail,tel));
-		return enseignantRepo.findAll();
+	public String createEnsignat(@RequestBody Enseignant user) {
+		enseignantRepo.save(user);
+		return "success";
 	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PutMapping("/")
 	@ResponseBody
-	 @PutMapping
-	 public void  add(@RequestBody Enseignant enseignant)
-	 {
-		 enseignantRepo.save(enseignant);
-	 }
+	public String editEnseignant(@RequestBody Enseignant user) {
+		Enseignant e = user;
+		enseignantRepo.save(e);
+		return "success";
+	}
+
 }

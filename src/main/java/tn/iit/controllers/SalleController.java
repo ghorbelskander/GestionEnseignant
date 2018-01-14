@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,47 +12,57 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tn.iit.entities.Salle;
 import tn.iit.repo.SalleRepo;
 
 @Controller
-@RequestMapping("Salle")
+@RequestMapping("api/salle")
 public class SalleController {
 	@Autowired
 	private SalleRepo salleRepo;
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping
 	@ResponseBody
-	public List<Salle> list() {
+	public List<Salle> liste() {
 		return salleRepo.findAll();
+
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
+	@ResponseBody
+	public String delete(@PathVariable Long id) {
 		salleRepo.delete(id);
+		return "success";
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	@ResponseBody
-	public Salle show(@PathVariable Long id) {
-		System.out.println(id);
-		salleRepo.findOne(id);
+	public Salle get(@PathVariable Long id) {
 		return salleRepo.findOne(id);
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value = "/")
 	@ResponseBody
-	@PostMapping
-	public List<Salle> add(@RequestParam String nom, @RequestParam String etage, @RequestParam int capacite) {
-		salleRepo.save(new Salle(nom,etage,capacite));
-		return salleRepo.findAll();
+	public String createLanguage(@RequestBody Salle salle) {
+
+		salleRepo.save(salle);
+
+		return "success";
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PutMapping("/")
 	@ResponseBody
-	@PutMapping
-	public void add(@RequestBody Salle salle) {
+	public String editSalle(@RequestBody Salle salle) {
+
 		salleRepo.save(salle);
+		return "success";
 	}
+
 }

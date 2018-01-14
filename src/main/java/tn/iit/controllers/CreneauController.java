@@ -1,9 +1,11 @@
 package tn.iit.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,48 +28,86 @@ import tn.iit.repo.SalleRepo;
 import tn.iit.repo.SeanceRepo;
 
 @Controller
-@RequestMapping("creneau")
+@RequestMapping("api/creneau")
 public class CreneauController {
 	@Autowired
 	private CreneauRepo creneauRepo;
 	@Autowired
 	private EnseignantRepo enseignantRepo;
 	@Autowired
-	private SeanceRepo seanceRepo;
-	@Autowired
 	private SalleRepo salleRepo;
 	@Autowired
 	private ClasseRepo classeRepo;
+	@Autowired
+	private SeanceRepo seanceRepo;
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping
 	@ResponseBody
-	public List<Creneau> list() {
+	public List<Creneau> liste() {
 		return creneauRepo.findAll();
+
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
+	@ResponseBody
+	public String delete(@PathVariable Long id) {
 		creneauRepo.delete(id);
+		return "success";
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	@ResponseBody
-	public Creneau show(@PathVariable Long id) {
-		System.out.println(id);
-		seanceRepo.findOne(id);
+	public Creneau get(@PathVariable Long id) {
 		return creneauRepo.findOne(id);
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value = "/")
 	@ResponseBody
-	@PostMapping
-	public List<Creneau> add(@RequestParam Enseignant enseignant, @RequestParam Classe classe, @RequestParam Salle salle, @RequestParam Seance seance) {
-		creneauRepo.save(new Creneau(enseignant,classe,salle,seance));
-		return creneauRepo.findAll();
+	public String createCreneau(@RequestParam("idClasse") String idClasse,
+			@RequestParam("idEnseignant") String idEnseignant, @RequestParam("idSalle") String idSalle,
+			@RequestParam("idSeance") String idSeance) {
+
+		Enseignant enseignant = enseignantRepo.getOne(Long.valueOf(idEnseignant));
+		Classe classe = classeRepo.getOne(Long.valueOf(idClasse));
+		Salle salle = salleRepo.getOne(Long.valueOf(idSalle));
+		Seance seance = seanceRepo.getOne(Long.valueOf(idSeance));
+
+		Creneau newCreneau = new Creneau(classe, enseignant, seance, salle, new Date().toString());
+		newCreneau.setEtat(true);
+		creneauRepo.save(newCreneau);
+		
+
+		return "success";
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping(value = "/creneauSeance/")
 	@ResponseBody
-	@PutMapping
-	public void add(@RequestBody Creneau creneau) {
-		creneauRepo.save(creneau);
+	public List<Creneau> getCreneauBySeance(@RequestParam Long idSeance1, @RequestParam Date date,
+			@PathVariable Long idSeance) {
+		Seance seance = seanceRepo.findOne(idSeance);
+		return creneauRepo.getCreneauBySeance(seance, date);
 	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PutMapping("/{id}")
+	@ResponseBody
+	public String editLanguage(@RequestBody Creneau creneau) {
+		creneauRepo.save(creneau);
+		return "success";
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PutMapping("/annuller/{id}")
+	@ResponseBody
+	public String annullerCreneau(@PathVariable Long id) {
+		creneauRepo.annuler(id);
+		
+		return "success";
+	}
+
 }

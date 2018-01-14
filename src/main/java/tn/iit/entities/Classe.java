@@ -1,105 +1,83 @@
 package tn.iit.entities;
 
+import java.io.Serializable;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-
 
 @Entity
-public class Classe implements java.io.Serializable {
+public class Classe implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2753552080166799360L;
-	private Integer id;
-	private String libelle;
-	private String specialite;
-	private String niveau;
-	private Set<Creneau> creneaus = new HashSet<Creneau>(0);
-
-	public Classe() {
-	}
-
-	public Classe(String libelle, String specialite, String niveau) {
-		this.libelle = libelle;
-		this.specialite = specialite;
-		this.niveau = niveau;
-	}
-
-	public Classe(String libelle, String specialite, String niveau, Set<Creneau> creneaus) {
-		this.libelle = libelle;
-		this.specialite = specialite;
-		this.niveau = niveau;
-		this.creneaus = creneaus;
-	}
-
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String libelle ;
+	private String specialite ;
+	private String niveau ;
+	public Classe(Long id, String libelle, String specialite, String niveau) {
+		super();
+		this.id = id;
+		this.libelle = libelle;
+		this.specialite = specialite;
+		this.niveau = niveau;
 	}
-
-	public void setId(Integer id) {
+	public Classe(String libelle, String specialite, String niveau) {
+		super();
+		this.libelle = libelle;
+		this.specialite = specialite;
+		this.niveau = niveau;
+	}
+	public Classe() {
+		super();
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
 		this.id = id;
 	}
-
-	@Column(name = "libelle", nullable = false, length = 30)
 	public String getLibelle() {
-		return this.libelle;
+		return libelle;
 	}
-
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-
-	@Column(name = "specialite", nullable = false, length = 30)
 	public String getspecialite() {
-		return this.specialite;
+		return specialite;
 	}
-
 	public void setspecialite(String specialite) {
 		this.specialite = specialite;
 	}
-
-	@Column(name = "niveau", nullable = false, length = 30)
 	public String getNiveau() {
-		return this.niveau;
+		return niveau;
 	}
-
 	public void setNiveau(String niveau) {
 		this.niveau = niveau;
 	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "groupe")
-	public Set<Creneau> getCreneaus() {
-		return this.creneaus;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
-
-	public void setCreneaus(Set<Creneau> creneaus) {
-		this.creneaus = creneaus;
+	@Override
+	public String toString() {
+		return "classe [id=" + id + ", libelle=" + libelle + ", specialite=" + specialite + ", niveau=" + niveau + "]";
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
+		result = prime * result + ((niveau == null) ? 0 : niveau.hashCode());
+		result = prime * result + ((specialite == null) ? 0 : specialite.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -114,13 +92,22 @@ public class Classe implements java.io.Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (libelle == null) {
+			if (other.libelle != null)
+				return false;
+		} else if (!libelle.equals(other.libelle))
+			return false;
+		if (niveau == null) {
+			if (other.niveau != null)
+				return false;
+		} else if (!niveau.equals(other.niveau))
+			return false;
+		if (specialite == null) {
+			if (other.specialite != null)
+				return false;
+		} else if (!specialite.equals(other.specialite))
+			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Groupe [id=" + id + ", libelle=" + libelle + ", specialite=" + specialite + ", niveau=" + niveau
-				+ ", creneaus=" + creneaus + "]";
 	}
 
 }
