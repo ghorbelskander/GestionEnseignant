@@ -14,51 +14,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tn.iit.repo.ClasseRepo;
-import tn.iit.entities.Classe;
+import tn.iit.repo.GroupeRepo;
+import tn.iit.entities.Groupe;
 
 @Controller
-@RequestMapping("api/classe")
-public class ClasseController {
+@RequestMapping("api/groupe")
+public class GroupeController {
 	@Autowired
-	private ClasseRepo classeRepo;
+	private GroupeRepo groupeRepositorie;
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping
 	@ResponseBody
-	public List<Classe> liste() {
-		return classeRepo.findAll();
+	public List<Groupe> liste() {
+		return groupeRepositorie.findAll();
 
 	}
-
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/{id}")
 	@ResponseBody
 	public String delete(@PathVariable Long id) {
-		classeRepo.delete(id);
+		groupeRepositorie.delete(id);
 		return "success";
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	@ResponseBody
-	public Classe get(@PathVariable Long id) {
-		return classeRepo.findOne(id);
+	public Groupe get(@PathVariable Long id) {
+		return groupeRepositorie.findOne(id);
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value = "/")
 	@ResponseBody
-	public String createLanguage(@RequestBody Classe classe) {
-		classeRepo.save(classe);
+	public String createLanguage(@RequestBody Groupe groupe) {
+		groupeRepositorie.save(groupe);
 		return "success";
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/")
 	@ResponseBody
-	public String editLanguage(@RequestBody Classe classe) {
-		classeRepo.save(classe);
+	public String editLanguage(@RequestBody Groupe groupe) {
+		groupeRepositorie.save(groupe);
 		return "success";
 	}
 

@@ -14,7 +14,6 @@ public interface SeanceRepo extends JpaRepository<Seance, Long> {
 
 	@Query("SELECT c FROM Seance c WHERE c.libelleSeance like :libelleSeance ")
 	public List<Seance> verif(@Param("libelleSeance") String liblelle);
-
 	@Query("SELECT count(c) FROM Seance c ")
 	long count();
 }

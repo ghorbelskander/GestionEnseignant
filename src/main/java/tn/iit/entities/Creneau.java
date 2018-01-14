@@ -24,26 +24,26 @@ public class Creneau implements Serializable {
 	private String date;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
-	private Classe classe;
+	private Groupe groupe;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Enseignant enseignant;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Seance seance;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Salle salle;
-	public Creneau(Long id, Classe classe, Enseignant enseignant, Seance seance, Salle salle,String date) {
+	public Creneau(Long id, Groupe groupe, Enseignant enseignant, Seance seance, Salle salle,String date) {
 		super();
 		this.id = id;
-		this.classe = classe;
+		this.groupe = groupe;
 		this.enseignant = enseignant;
 		this.seance = seance;
 		this.salle = salle;
 		
 		this.date=date;
 	}
-	public Creneau(Classe classe, Enseignant enseignant, Seance seance, Salle salle,String date) {
+	public Creneau(Groupe groupe, Enseignant enseignant, Seance seance, Salle salle,String date) {
 		super();
-		this.classe = classe;
+		this.groupe = groupe;
 		
 		this.enseignant = enseignant;
 		this.seance = seance;
@@ -56,11 +56,11 @@ public class Creneau implements Serializable {
 	public void setEtat(boolean etat) {
 		this.etat = etat;
 	}
-	public Classe getClasse() {
-		return classe;
+	public Groupe getGroupe() {
+		return groupe;
 	}
-	public void setClasse(Classe classe) {
-		this.classe = classe;
+	public void setGroupe(Groupe groupe) {
+		this.groupe = groupe;
 	}
 	public Creneau() {
 		super();
@@ -72,11 +72,11 @@ public class Creneau implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Classe getNiveau() {
-		return classe;
+	public Groupe getNiveau() {
+		return groupe;
 	}
-	public void setNiveau(Classe groupe) {
-		this.classe = groupe;
+	public void setNiveau(Groupe groupe) {
+		this.groupe = groupe;
 	}
 	public String getDate() {
 		return date;
@@ -107,7 +107,7 @@ public class Creneau implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Creneau [id=" + id + ", classe=" + classe + ", enseignant=" + enseignant + ", seance=" + seance
+		return "Creneau [id=" + id + ", groupe=" + groupe + ", enseignant=" + enseignant + ", seance=" + seance
 				+ ", salle=" + salle + "]";
 	}
 	@Override
@@ -116,7 +116,7 @@ public class Creneau implements Serializable {
 		int result = 1;
 		result = prime * result + ((enseignant == null) ? 0 : enseignant.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((classe == null) ? 0 : classe.hashCode());
+		result = prime * result + ((groupe == null) ? 0 : groupe.hashCode());
 		result = prime * result + ((salle == null) ? 0 : salle.hashCode());
 		result = prime * result + ((seance == null) ? 0 : seance.hashCode());
 		return result;
@@ -140,10 +140,10 @@ public class Creneau implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (classe == null) {
-			if (other.classe != null)
+		if (groupe == null) {
+			if (other.groupe != null)
 				return false;
-		} else if (!classe.equals(other.classe))
+		} else if (!groupe.equals(other.groupe))
 			return false;
 		if (salle == null) {
 			if (other.salle != null)

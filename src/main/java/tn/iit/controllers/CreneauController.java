@@ -16,16 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tn.iit.entities.Classe;
 import tn.iit.entities.Creneau;
 import tn.iit.entities.Enseignant;
+import tn.iit.entities.Groupe;
+import tn.iit.entities.Nombre;
 import tn.iit.entities.Salle;
 import tn.iit.entities.Seance;
-import tn.iit.repo.ClasseRepo;
 import tn.iit.repo.CreneauRepo;
 import tn.iit.repo.EnseignantRepo;
+import tn.iit.repo.GroupeRepo;
 import tn.iit.repo.SalleRepo;
 import tn.iit.repo.SeanceRepo;
+
+
 
 @Controller
 @RequestMapping("api/creneau")
@@ -37,7 +40,7 @@ public class CreneauController {
 	@Autowired
 	private SalleRepo salleRepo;
 	@Autowired
-	private ClasseRepo classeRepo;
+	private GroupeRepo groupeRepo;
 	@Autowired
 	private SeanceRepo seanceRepo;
 
@@ -65,23 +68,29 @@ public class CreneauController {
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/compteur/")
+	@ResponseBody
+	public Nombre get() {
+		return new Nombre(creneauRepo.count(), enseignantRepo.count(), groupeRepo.count(),
+				seanceRepo.count(), salleRepo.count());
+	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value = "/")
 	@ResponseBody
-	public String createCreneau(@RequestParam("idClasse") String idClasse,
+	public String createCreneau(@RequestParam("idGroupe") String idGroupe,
 			@RequestParam("idEnseignant") String idEnseignant, @RequestParam("idSalle") String idSalle,
 			@RequestParam("idSeance") String idSeance) {
 
 		Enseignant enseignant = enseignantRepo.getOne(Long.valueOf(idEnseignant));
-		Classe classe = classeRepo.getOne(Long.valueOf(idClasse));
+		Groupe groupe = groupeRepo.getOne(Long.valueOf(idGroupe));
 		Salle salle = salleRepo.getOne(Long.valueOf(idSalle));
 		Seance seance = seanceRepo.getOne(Long.valueOf(idSeance));
 
-		Creneau newCreneau = new Creneau(classe, enseignant, seance, salle, new Date().toString());
+		Creneau newCreneau = new Creneau(groupe, enseignant, seance, salle, new Date().toString());
 		newCreneau.setEtat(true);
 		creneauRepo.save(newCreneau);
-		
-
-		return "success";
+			return "success";
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")

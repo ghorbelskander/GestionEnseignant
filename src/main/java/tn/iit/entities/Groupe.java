@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Classe implements Serializable {
+public class Groupe implements Serializable {
 
 	/**
 	 * 
@@ -21,20 +21,20 @@ public class Classe implements Serializable {
 	private String libelle ;
 	private String specialite ;
 	private String niveau ;
-	public Classe(Long id, String libelle, String specialite, String niveau) {
+	public Groupe(Long id, String libelle, String specialite, String niveau) {
 		super();
 		this.id = id;
 		this.libelle = libelle;
 		this.specialite = specialite;
 		this.niveau = niveau;
 	}
-	public Classe(String libelle, String specialite, String niveau) {
+	public Groupe(String libelle, String specialite, String niveau) {
 		super();
 		this.libelle = libelle;
 		this.specialite = specialite;
 		this.niveau = niveau;
 	}
-	public Classe() {
+	public Groupe() {
 		super();
 	}
 	public Long getId() {
@@ -66,7 +66,7 @@ public class Classe implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "classe [id=" + id + ", libelle=" + libelle + ", specialite=" + specialite + ", niveau=" + niveau + "]";
+		return "Groupe [id=" + id + ", libelle=" + libelle + ", specialite=" + specialite + ", niveau=" + niveau + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -86,7 +86,7 @@ public class Classe implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Classe other = (Classe) obj;
+		Groupe other = (Groupe) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

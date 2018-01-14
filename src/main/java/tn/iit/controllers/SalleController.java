@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tn.iit.entities.Salle;
 import tn.iit.repo.SalleRepo;
+import tn.iit.entities.Salle;
 
 @Controller
 @RequestMapping("api/salle")
 public class SalleController {
 	@Autowired
-	private SalleRepo salleRepo;
-
+	private SalleRepo salleDao;
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping
 	@ResponseBody
 	public List<Salle> liste() {
-		return salleRepo.findAll();
+		return salleDao.findAll();
 
 	}
 
@@ -35,23 +35,23 @@ public class SalleController {
 	@DeleteMapping("/{id}")
 	@ResponseBody
 	public String delete(@PathVariable Long id) {
-		salleRepo.delete(id);
+		salleDao.delete(id);
 		return "success";
 	}
-
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Salle get(@PathVariable Long id) {
-		return salleRepo.findOne(id);
+		return salleDao.findOne(id);
 	}
-
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping(value = "/")
 	@ResponseBody
 	public String createLanguage(@RequestBody Salle salle) {
-
-		salleRepo.save(salle);
+		
+		salleDao.save(salle);
 
 		return "success";
 	}
@@ -60,8 +60,9 @@ public class SalleController {
 	@PutMapping("/")
 	@ResponseBody
 	public String editSalle(@RequestBody Salle salle) {
-
-		salleRepo.save(salle);
+		
+		
+		salleDao.save(salle);
 		return "success";
 	}
 
