@@ -1,4 +1,4 @@
-package tn.iit.entities;
+package tn.iit.entitie;
 
 import java.io.Serializable;
 

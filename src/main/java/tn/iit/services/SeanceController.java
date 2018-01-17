@@ -1,4 +1,4 @@
-package tn.iit.controllers;
+package tn.iit.services;
 
 import java.util.List;
 
@@ -14,51 +14,55 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tn.iit.repo.GroupeRepo;
-import tn.iit.entities.Groupe;
+import tn.iit.dao.SeanceRepositorie;
+import tn.iit.entitie.Seance;
 
 @Controller
-@RequestMapping("api/groupe")
-public class GroupeController {
+@RequestMapping("api/seance")
+@CrossOrigin(origins = "*")
+public class SeanceController {
 	@Autowired
-	private GroupeRepo groupeRepositorie;
+	private SeanceRepositorie seanceDao;
 
-	@CrossOrigin(origins = "*")
+	
 	@GetMapping
 	@ResponseBody
-	public List<Groupe> liste() {
-		return groupeRepositorie.findAll();
+	public List<Seance> liste() {
+		return seanceDao.findAll();
+
+	}
+
+	
+	@DeleteMapping("/{id}")
+	@ResponseBody
+	public String delete(@PathVariable Long id) {
+		seanceDao.delete(id);
+		return "success";
+	}
+
+	
+	@GetMapping("/{id}")
+	@ResponseBody
+	public Seance get(@PathVariable Long id) {
+		return seanceDao.findOne(id);
+	}
+	
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/")
+	@ResponseBody
+	public String createseance(@RequestBody Seance seance) {
+			seanceDao.save(seance);
+			return "success";
+		
 
 	}
 	
 	@CrossOrigin(origins = "*")
-	@DeleteMapping("/{id}")
-	@ResponseBody
-	public String delete(@PathVariable Long id) {
-		groupeRepositorie.delete(id);
-		return "success";
-	}
-
-	@CrossOrigin(origins = "*")
-	@GetMapping("/{id}")
-	@ResponseBody
-	public Groupe get(@PathVariable Long id) {
-		return groupeRepositorie.findOne(id);
-	}
-
-	@CrossOrigin(origins = "*")
-	@PostMapping(value = "/")
-	@ResponseBody
-	public String createLanguage(@RequestBody Groupe groupe) {
-		groupeRepositorie.save(groupe);
-		return "success";
-	}
-
-	@CrossOrigin(origins = "*")
 	@PutMapping("/")
 	@ResponseBody
-	public String editLanguage(@RequestBody Groupe groupe) {
-		groupeRepositorie.save(groupe);
+	public String editseance(@RequestBody Seance seance) {
+
+		seanceDao.save(seance);
 		return "success";
 	}
 

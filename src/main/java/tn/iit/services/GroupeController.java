@@ -1,4 +1,4 @@
-package tn.iit.controllers;
+package tn.iit.services;
 
 import java.util.List;
 
@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tn.iit.repo.GroupeRepo;
-import tn.iit.entities.Groupe;
+import tn.iit.dao.GroupeRepositorie;
+import tn.iit.entitie.Groupe;
 
 @Controller
 @RequestMapping("api/groupe")
+@CrossOrigin(origins = "*")
 public class GroupeController {
 	@Autowired
-	private GroupeRepo groupeRepositorie;
+	private GroupeRepositorie groupeRepositorie;
 
 	@CrossOrigin(origins = "*")
 	@GetMapping

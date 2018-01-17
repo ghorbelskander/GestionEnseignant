@@ -23,7 +23,7 @@ public class EnseignantController {
 	@Autowired
 	private EnseignantRepo enseignantRepo;
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@GetMapping
 	@ResponseBody
 	public List<Enseignant> liste() {
@@ -31,7 +31,7 @@ public class EnseignantController {
 
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
 	@ResponseBody
 	public String delete(@PathVariable Long id) {
@@ -39,14 +39,14 @@ public class EnseignantController {
 		return "success";
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Enseignant get(@PathVariable Long id) {
 		return enseignantRepo.findOne(id);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/")
 	@ResponseBody
 	public String createEnsignat(@RequestBody Enseignant user) {
@@ -54,7 +54,7 @@ public class EnseignantController {
 		return "success";
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PutMapping("/")
 	@ResponseBody
 	public String editEnseignant(@RequestBody Enseignant user) {

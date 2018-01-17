@@ -1,4 +1,4 @@
-package tn.iit.controllers;
+package tn.iit.services;
 
 import java.util.List;
 
@@ -14,51 +14,56 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tn.iit.repo.GroupeRepo;
-import tn.iit.entities.Groupe;
+import tn.iit.dao.SalleRepositorie;
+import tn.iit.entitie.Salle;
 
 @Controller
-@RequestMapping("api/groupe")
-public class GroupeController {
+@RequestMapping("api/salle")
+@CrossOrigin(origins = "*")
+public class SalleController {
 	@Autowired
-	private GroupeRepo groupeRepositorie;
-
+	private SalleRepositorie salleDao;
+	
 	@CrossOrigin(origins = "*")
 	@GetMapping
 	@ResponseBody
-	public List<Groupe> liste() {
-		return groupeRepositorie.findAll();
+	public List<Salle> liste() {
+		return salleDao.findAll();
 
 	}
-	
+
 	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
 	@ResponseBody
 	public String delete(@PathVariable Long id) {
-		groupeRepositorie.delete(id);
+		salleDao.delete(id);
 		return "success";
 	}
-
+	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	@ResponseBody
-	public Groupe get(@PathVariable Long id) {
-		return groupeRepositorie.findOne(id);
+	public Salle get(@PathVariable Long id) {
+		return salleDao.findOne(id);
 	}
-
+	
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/")
 	@ResponseBody
-	public String createLanguage(@RequestBody Groupe groupe) {
-		groupeRepositorie.save(groupe);
+	public String createLanguage(@RequestBody Salle salle) {
+		
+		salleDao.save(salle);
+
 		return "success";
 	}
 
 	@CrossOrigin(origins = "*")
 	@PutMapping("/")
 	@ResponseBody
-	public String editLanguage(@RequestBody Groupe groupe) {
-		groupeRepositorie.save(groupe);
+	public String editSalle(@RequestBody Salle salle) {
+		
+		
+		salleDao.save(salle);
 		return "success";
 	}
 

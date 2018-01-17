@@ -23,7 +23,7 @@ public class SalleController {
 	@Autowired
 	private SalleRepo salleDao;
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@GetMapping
 	@ResponseBody
 	public List<Salle> liste() {
@@ -31,7 +31,7 @@ public class SalleController {
 
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
 	@ResponseBody
 	public String delete(@PathVariable Long id) {
@@ -39,14 +39,14 @@ public class SalleController {
 		return "success";
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Salle get(@PathVariable Long id) {
 		return salleDao.findOne(id);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/")
 	@ResponseBody
 	public String createLanguage(@RequestBody Salle salle) {
@@ -56,7 +56,7 @@ public class SalleController {
 		return "success";
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PutMapping("/")
 	@ResponseBody
 	public String editSalle(@RequestBody Salle salle) {

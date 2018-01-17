@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tn.iit.entities.Creneau;
 import tn.iit.entities.Enseignant;
 import tn.iit.entities.Groupe;
-import tn.iit.entities.Nombre;
 import tn.iit.entities.Salle;
 import tn.iit.entities.Seance;
 import tn.iit.repo.CreneauRepo;
@@ -44,7 +43,7 @@ public class CreneauController {
 	@Autowired
 	private SeanceRepo seanceRepo;
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@GetMapping
 	@ResponseBody
 	public List<Creneau> liste() {
@@ -52,7 +51,7 @@ public class CreneauController {
 
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
 	@ResponseBody
 	public String delete(@PathVariable Long id) {
@@ -60,22 +59,16 @@ public class CreneauController {
 		return "success";
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Creneau get(@PathVariable Long id) {
 		return creneauRepo.findOne(id);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/compteur/")
-	@ResponseBody
-	public Nombre get() {
-		return new Nombre(creneauRepo.count(), enseignantRepo.count(), groupeRepo.count(),
-				seanceRepo.count(), salleRepo.count());
-	}
+	
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/")
 	@ResponseBody
 	public String createCreneau(@RequestParam("idGroupe") String idGroupe,
@@ -93,7 +86,7 @@ public class CreneauController {
 			return "success";
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/creneauSeance/")
 	@ResponseBody
 	public List<Creneau> getCreneauBySeance(@RequestParam Long idSeance1, @RequestParam Date date,
@@ -102,7 +95,7 @@ public class CreneauController {
 		return creneauRepo.getCreneauBySeance(seance, date);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PutMapping("/{id}")
 	@ResponseBody
 	public String editLanguage(@RequestBody Creneau creneau) {
@@ -110,7 +103,7 @@ public class CreneauController {
 		return "success";
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PutMapping("/annuller/{id}")
 	@ResponseBody
 	public String annullerCreneau(@PathVariable Long id) {

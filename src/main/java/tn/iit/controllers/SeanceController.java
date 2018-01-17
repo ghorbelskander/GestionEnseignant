@@ -23,7 +23,7 @@ public class SeanceController {
 	@Autowired
 	private SeanceRepo seanceRepo;
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@GetMapping
 	@ResponseBody
 	public List<Seance> liste() {
@@ -31,7 +31,7 @@ public class SeanceController {
 
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
 	@ResponseBody
 	public String delete(@PathVariable Long id) {
@@ -39,14 +39,14 @@ public class SeanceController {
 		return "success";
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Seance get(@PathVariable Long id) {
 		return seanceRepo.findOne(id);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/")
 	@ResponseBody
 	public String createseance(@RequestBody Seance seance) {
@@ -56,7 +56,7 @@ public class SeanceController {
 
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PutMapping("/")
 	@ResponseBody
 	public String editseance(@RequestBody Seance seance) {

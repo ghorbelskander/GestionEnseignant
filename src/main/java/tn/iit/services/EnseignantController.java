@@ -1,4 +1,4 @@
-package tn.iit.controllers;
+package tn.iit.services;
 
 import java.util.List;
 
@@ -14,51 +14,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tn.iit.repo.GroupeRepo;
-import tn.iit.entities.Groupe;
+import tn.iit.dao.EnsignantRepositorie;
+import tn.iit.entitie.Enseignant;
 
 @Controller
-@RequestMapping("api/groupe")
-public class GroupeController {
+@RequestMapping("api/enseignant")
+@CrossOrigin("*")
+public class EnseignantController {
 	@Autowired
-	private GroupeRepo groupeRepositorie;
+	private EnsignantRepositorie ensignantRepositorie;
 
-	@CrossOrigin(origins = "*")
+	
 	@GetMapping
 	@ResponseBody
-	public List<Groupe> liste() {
-		return groupeRepositorie.findAll();
+	public List<Enseignant> liste() {
+		return ensignantRepositorie.findAll();
 
 	}
+
 	
-	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
 	@ResponseBody
 	public String delete(@PathVariable Long id) {
-		groupeRepositorie.delete(id);
+		ensignantRepositorie.delete(id);
 		return "success";
 	}
 
-	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	@ResponseBody
-	public Groupe get(@PathVariable Long id) {
-		return groupeRepositorie.findOne(id);
+	public Enseignant get(@PathVariable Long id) {
+		return ensignantRepositorie.findOne(id);
 	}
 
-	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/")
 	@ResponseBody
-	public String createLanguage(@RequestBody Groupe groupe) {
-		groupeRepositorie.save(groupe);
+	public String createEnseignant(@RequestBody Enseignant user) {
+		ensignantRepositorie.save(user);
 		return "success";
 	}
 
-	@CrossOrigin(origins = "*")
+
 	@PutMapping("/")
 	@ResponseBody
-	public String editLanguage(@RequestBody Groupe groupe) {
-		groupeRepositorie.save(groupe);
+	public String editEnseignant(@RequestBody Enseignant user) {
+		Enseignant e = user;
+		ensignantRepositorie.save(e);
 		return "success";
 	}
 
